@@ -9,23 +9,29 @@ async function loadPokemon() {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         currentPokemon = await response.json();
-        let name = currentPokemon['name']
-        console.log('Loaded ', currentPokemon, name);
-        renderPokemonInfo();
+        console.log('Loaded ', currentPokemon);
+
+        document.getElementById('pokemon').innerHTML += `
+        <div id="pokedex">           
+            <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
+            <div class="pokemoncard" id="pokemoncard${i}">
+                <div class="pokemondetails">
+                    <h3 id="pokemonName${i}"></h3>
+                    <button id="types${i}"></button>
+                </div>
+            </div>
+        </div>    
+        `;
+        renderPokemonInfo(i);
     }
 }
 
-function renderPokemonInfo() {
-    document.getElementById('pokemonName').innerHTML = currentPokemon['name'];
-    document.getElementById('pokemonImg').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    document.getElementById('type').innerHTML = currentPokemon['types'][0]['type']['name'];
-    renderPokemonTypes();
-}
 
-function renderPokemonTypes() {
-    for (let i = 0; i < currentPokemon['types'].length; i++) {
-        document.getElementById(`types${currentPokemon['name']}`).innerHTML += `
-        <button>currentPokemon['types'][i]['type']['name']</button>
-        `;
+function renderPokemonInfo(i) {
+    document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
+    document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+
+    for (let j = 0; j < currentPokemon['types'].length; j++) {
+        document.getElementById(`types${i}`).innerHTML += currentPokemon['types'][j]['type']['name'];
     }
 }
