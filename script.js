@@ -12,17 +12,18 @@ async function loadPokemon() {
         console.log('Loaded ', currentPokemon);
 
         document.getElementById('pokemon').innerHTML += `
-        <div id="pokedex">           
+        <div class="pokedex" id="pokedex${i}">           
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
                     <h3 id="pokemonName${i}"></h3>
-                    <button id="types${i}"></button>
+                    <span id="types${i}"></span>
                 </div>
             </div>
         </div>    
         `;
         renderPokemonInfo(i);
+        renderPokemonTypes(i)
     }
 }
 
@@ -30,8 +31,13 @@ async function loadPokemon() {
 function renderPokemonInfo(i) {
     document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+}
 
+function renderPokemonTypes(i) {
     for (let j = 0; j < currentPokemon['types'].length; j++) {
-        document.getElementById(`types${i}`).innerHTML += currentPokemon['types'][j]['type']['name'];
+        document.getElementById(`types${i}`).innerHTML += `
+        <div class="types-container${i}">
+        <button><b>${currentPokemon['types'][j]['type']['name']}</b></button>
+        </div>`;
     }
 }
