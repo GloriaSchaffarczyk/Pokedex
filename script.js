@@ -5,7 +5,7 @@ async function init() {
 }
 
 async function loadPokemon() {
-    for (let i = 1; i < 13; i++) {
+    for (let i = 1; i < 33; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         currentPokemon = await response.json();
@@ -27,7 +27,6 @@ async function loadPokemon() {
     }
 }
 
-
 function renderPokemonInfo(i) {
     document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
@@ -35,9 +34,17 @@ function renderPokemonInfo(i) {
 
 function renderPokemonTypes(i) {
     for (let j = 0; j < currentPokemon['types'].length; j++) {
+        let pokemonType = currentPokemon['types'][j]['type']['name'];
         document.getElementById(`types${i}`).innerHTML += `
         <div class="types-container${i}">
-        <button><b>${currentPokemon['types'][j]['type']['name']}</b></button>
+        <button><b>${pokemonType}</b></button>
         </div>`;
+        getPokemonColors(pokemonType);
     }
+}
+
+function getPokemonColors(pokemonType) {
+return `
+<img src="img/types/${pokemonType}.png"></img>
+`
 }
