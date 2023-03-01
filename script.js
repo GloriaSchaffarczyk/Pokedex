@@ -1,5 +1,6 @@
 let currentPokemon;
 
+
 async function init() {
     loadPokemon();
 }
@@ -37,14 +38,16 @@ function renderPokemonTypes(i) {
         let pokemonType = currentPokemon['types'][j]['type']['name'];
         document.getElementById(`types${i}`).innerHTML += `
         <div class="types-container${i}">
-        <button><b>${pokemonType}</b></button>
-        </div>`;
-        getPokemonColors(pokemonType);
+        <div class="type-icons">${getPokemonColors(pokemonType)}</div>`;
     }
 }
 
 function getPokemonColors(pokemonType) {
-return `
+    return `
 <img src="img/types/${pokemonType}.png"></img>
-`
+`;
+}
+
+function getBackgroundColor(i, j) {
+    document.getElementById(`pokemoncard${i}`).style.backgroundColor = '.' + currentPokemon['types'][j]['type']['name'];
 }

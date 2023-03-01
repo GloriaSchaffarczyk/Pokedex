@@ -6,7 +6,7 @@ body {
 
 h3 {
     margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
+    margin-block-end: 0.3em;
 }
 
 header {
@@ -70,6 +70,11 @@ button {
     border: none;
     border-radius: 3px;
     margin-bottom: 5px
+}
+
+.type-icons img {
+    width: 24px;
+    height: 24px;
 }
 
 
