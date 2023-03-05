@@ -1,4 +1,6 @@
 let currentPokemon;
+let loadedPokemon = 33;
+let currentlyLoaded = 1;
 
 
 async function init() {
@@ -6,7 +8,7 @@ async function init() {
 }
 
 async function loadPokemon() {
-    for (let i = 1; i < 33; i++) {
+    for (let i = currentlyLoaded; i < loadedPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         currentPokemon = await response.json();
@@ -17,8 +19,13 @@ async function loadPokemon() {
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
-                    <h3 id="pokemonName${i}"></h3>
-                    <span id="types${i}"></span>
+                    <div class="nameAndId">
+                        <h3 id="pokemonId${i}"></h3>
+                        <h3 id="pokemonName${i}"></h3>
+                    </div>
+                    <div class="types">
+                        <span id="types${i}"></span>
+                    </div>
                 </div>
             </div>
         </div>    
@@ -30,6 +37,10 @@ async function loadPokemon() {
 
 function renderPokemonInfo(i) {
     document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
+    document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
+    document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
+    document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
 
@@ -38,7 +49,7 @@ function renderPokemonTypes(i) {
         let pokemonType = currentPokemon['types'][j]['type']['name'];
         document.getElementById(`types${i}`).innerHTML += `
         <div class="types-container${i}">
-        <div class="type-icons">${getPokemonColors(pokemonType)}</div>
+            <div class="type-icons">${getPokemonColors(pokemonType)}</div>
         </div>`;
     }
     getBorderColor(i, currentPokemon['types'][0]['type']['name']);
@@ -52,4 +63,14 @@ function getPokemonColors(pokemonType) {
 
 function getBorderColor(i, pokemonType) {
     document.getElementById(`pokemoncard${i}`).classList.add(pokemonType);
+}
+
+function capitalizeFirstLetter(currentPokemon) {
+    return currentPokemon['name'].charAt(0).toUpperCase() + currentPokemon['name'].slice(1);
+}
+
+function loadMorePokemon() {
+    currentlyLoaded = loadedPokemon + 1;
+    loadedPokemon += 33;
+    loadPokemon();
 }

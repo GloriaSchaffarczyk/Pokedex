@@ -6,7 +6,7 @@ body {
 
 h3 {
     margin-block-start: 0.5em;
-    margin-block-end: 0.3em;
+    margin-block-end: 0.5em;
 }
 
 header {
@@ -26,7 +26,6 @@ header {
     width: 100vw;
     flex-wrap: wrap;
 }
-
 
 .pokemoncard {
     height: 100px;
@@ -71,7 +70,7 @@ header {
 }
 
 img {
-    filter:	drop-shadow(0 0 19px #000000); 
+    filter: drop-shadow(0 0 19px #000000);
 }
 
 button {
@@ -81,8 +80,45 @@ button {
 }
 
 .type-icons img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
+}
+
+.types span {
+    display: flex;
+    gap: 12px;
+}
+
+.nameAndId {
+    display: flex;
+    gap: 8px;
+}
+
+.loadMoreButton {
+    padding: 20px 35px;
+    background: #000000;
+    color: #fffedc;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s all ease-in;
+    letter-spacing: 4px;
+    overflow: hidden;
+    border: 2px solid #fffedc;
+    margin-top: 84px;
+    margin-bottom: 128px;
+    font-weight: bold;
+}
+
+.loadMoreButton:hover {
+    background: #fffedc;
+    color: #050801;
+    box-shadow: 0 0 5px #fffedc,
+        0 0 25px #fffedc,
+        0 0 50px #fffedc,
+        0 0 100px #fffedc;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    cursor: pointer;
+    font-weight: bold;
 }
 
 
@@ -166,7 +202,7 @@ button {
 
     .pokemoncard {
         height: 100px;
-        width:150px;
+        width: 150px;
     }
 
     .pokemonImg {
