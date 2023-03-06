@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="types.css">
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/80a0430f8c.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="init()">
@@ -24,6 +25,12 @@
     </header>
 
     <div class="pokemonoverview">
+        <div class="box">
+            <form name="search">
+                <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+            </form>
+            <i class="fas fa-search"></i>
+        </div>
         <div class="pokemon" id="pokemon">
             <!-- JS Code wird eingefügt -->
         </div>
