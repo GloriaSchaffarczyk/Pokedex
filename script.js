@@ -3,7 +3,7 @@ let loadedPokemon = 33;
 let currentlyLoaded = 1;
 
 
-async function init() {
+function init() {
     loadPokemon();
 }
 
@@ -73,4 +73,16 @@ function loadMorePokemon() {
     currentlyLoaded = loadedPokemon + 1;
     loadedPokemon += 33;
     loadPokemon();
+}
+
+function searchPokemon(loadedPokemon) {
+    let search = document.getElementById('search').value;
+    search = search.toLowerCase();
+    console.log(search);
+
+    for (let i = currentlyLoaded; i < loadedPokemon; i++) {
+        if (loadedPokemon.toLowerCase().includes(search)) {
+
+        }
+    }
 }
