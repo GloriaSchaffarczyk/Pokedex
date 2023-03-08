@@ -75,14 +75,17 @@ function loadMorePokemon() {
     loadPokemon();
 }
 
-function searchPokemon(loadedPokemon) {
-    let search = document.getElementById('search').value;
-    search = search.toLowerCase();
-    console.log(search);
+function searchPokemon() {
+    let search = document.getElementById('search').value.toLowerCase();
 
-    for (let i = currentlyLoaded; i < loadedPokemon; i++) {
-        if (loadedPokemon.toLowerCase().includes(search)) {
+    for (let i = 1; i <= loadedPokemon; i++) {
+        let pokemonCard = document.getElementById(`pokemoncard${i}`);
+        let pokemonName = document.getElementById(`pokemonName${i}`).textContent.toLowerCase();
 
+        if (pokemonName.includes(search)) {
+            pokemonCard.style.display = 'block';
+        } else {
+            pokemonCard.style.display = 'none';
         }
     }
 }

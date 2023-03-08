@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: 'Bellota Text', cursive;
     background-color: black;
+    overflow-x: hidden;
 }
 
 h3 {
@@ -16,14 +17,14 @@ header {
 }
 
 .pokedexLogo {
-    width: 700px;
+    width: 500px;
 }
 
 .pokemonoverview {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     flex-wrap: wrap;
 }
 
@@ -126,7 +127,7 @@ button {
     margin-bottom: 24px;
 }
 
-.input {
+#search {
     padding: 10px;
     width: 80px;
     height: 80px;
@@ -138,6 +139,7 @@ button {
     color: #fffedc;
     outline: none;
     transition: .5s;
+    width: 320px;
 }
 
 .box:hover input{
