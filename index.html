@@ -20,17 +20,23 @@
 
 <body onload="init()">
 
+    <div id="overlay" class="overlay d-none"></div>
+
     <header>
         <img class="pokedexLogo" src="img/Pokédex_02.svg" alt="">
     </header>
 
     <div class="pokemonoverview">
-        <input id="search" onchange="searchPokemon()" type="text" class="input" name="txt" placeholder="Search by Name">
-    </div>
-    <div class="pokemon" id="pokemon">
-        <!-- JS Code wird eingefügt -->
-    </div>
-    <button class="loadMoreButton" onclick="loadMorePokemon()">Load More</button>
+        <div class="box">
+            <form name="search">
+                <input id="search" onchange="searchPokemon()" type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+            </form>
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="pokemon" id="pokemon">
+            <!-- JS Code wird eingefügt -->
+        </div>
+        <button class="loadMoreButton" onclick="loadMorePokemon()">Load More</button>
     </div>
 </body>
 

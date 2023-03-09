@@ -75,17 +75,78 @@ function loadMorePokemon() {
     loadPokemon();
 }
 
-function searchPokemon() {
-    let search = document.getElementById('search').value.toLowerCase();
+function openImage(i) {
+    let overlay = document.getElementById('overlay');
+    overlay.classList.remove('d-none');
+    overlay.innerHTML = templateOverlay(i);
+ }
 
-    for (let i = 1; i <= loadedPokemon; i++) {
-        let pokemonCard = document.getElementById(`pokemoncard${i}`);
-        let pokemonName = document.getElementById(`pokemonName${i}`).textContent.toLowerCase();
-
-        if (pokemonName.includes(search)) {
-            pokemonCard.style.display = 'block';
-        } else {
-            pokemonCard.style.display = 'none';
-        }
-    }
+function closeImage() {
+    let overlay = document.getElementById('overlay');
+    overlay.classList.add('d-none');
 }
+
+function backward(i, loadedPokemon) {
+    if (i !== 0) {
+        i--
+    } else {
+        i = loadedPokemon -1
+    }
+    document.getElementById('overlay').innerHTML = ``;
+    openImage(i);
+}
+
+function forward(i, loadedPokemon) {
+    if (i < loadedPokemon - 1) {
+        i++
+    } else {
+        i = 0
+    }
+    document.getElementById('overlay').innerHTML = ``;
+    openImage(i);
+}
+
+function scrollStop() {
+    document.getElementById('body').classList.add('scrollStop');
+}
+
+function scrollStart() {
+    document.getElementById('body').classList.remove('scrollStop');
+}
+
+function templateOverlay(i, pokemonImg) {
+    return `
+    <div class="pokemonDetails">
+        <span class="close" onclick="closeImage(), scrollStart()">&times;</span>
+        <div class="overlay-bgr"></div>
+        <img class="zoomedImage" src="${pokemonImg[i]}">
+        <div id="backward" class="backward" onclick="backward(${i})"><img src="img/backward_w.png"></div>
+        <div id="forward" class="forward" onclick="forward(${i})"><img src="img/forward_w.png"></div>
+    </div>
+    `
+} 
+
+/* function searchPokemon() {
+    let pokemon = document.getElementById('pokemon');
+    pokemon.innerHTML = '';
+
+    for (let k = 0; k < currentPokemon['name'].length; j++) {
+        let pokemonName = currentPokemon['name'];
+        pokemon.innerHTML += `
+        <div class="pokedex" id="pokedex${k}">           
+            <img class="pokemonImg" id="pokemonImg${k}" src="" alt="">
+            <div class="pokemoncard" id="pokemoncard${k}">
+                <div class="pokemondetails">
+                    <div class="nameAndId">
+                        <h3 id="pokemonId${k}"></h3>
+                        <h3 id="pokemonName${k}"></h3>
+                    </div>
+                    <div class="types">
+                        <span id="types${k}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        `;
+    }
+} */
