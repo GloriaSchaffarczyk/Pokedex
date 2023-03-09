@@ -120,8 +120,8 @@ function templateOverlay(i, pokemonImg) {
         <span class="close" onclick="closeImage(), scrollStart()">&times;</span>
         <div class="overlay-bgr"></div>
         <img class="zoomedImage" src="${pokemonImg[i]}">
-        <div id="backward" class="backward" onclick="backward(${i})"><img src="img/backward_w.png"></div>
-        <div id="forward" class="forward" onclick="forward(${i})"><img src="img/forward_w.png"></div>
+        <div id="backward" class="backward" onclick="backward(${i})"><img src="img/backward.png"></div>
+        <div id="forward" class="forward" onclick="forward(${i})"><img src="img/forward.png"></div>
     </div>
     `
 } 
