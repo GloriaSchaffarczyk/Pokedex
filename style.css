@@ -198,7 +198,7 @@ button {
     transition: 225ms ease-in-out;
  }
  
- .gallery img:hover {
+ .pokedex:hover {
     transform: scale(1.1);
     transition: 125ms ease-in-out;
     cursor: pointer;

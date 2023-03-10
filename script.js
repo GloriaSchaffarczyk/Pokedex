@@ -79,7 +79,7 @@ function openImage(i) {
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('d-none');
     overlay.innerHTML = templateOverlay(i);
- }
+}
 
 function closeImage() {
     let overlay = document.getElementById('overlay');
@@ -90,7 +90,7 @@ function backward(i, loadedPokemon) {
     if (i !== 0) {
         i--
     } else {
-        i = loadedPokemon -1
+        i = loadedPokemon - 1
     }
     document.getElementById('overlay').innerHTML = ``;
     openImage(i);
@@ -124,15 +124,18 @@ function templateOverlay(i, pokemonImg) {
         <div id="forward" class="forward" onclick="forward(${i})"><img src="img/forward.png"></div>
     </div>
     `
-} 
+}
 
-/* function searchPokemon() {
+function searchPokemon() {
     let pokemon = document.getElementById('pokemon');
     pokemon.innerHTML = '';
 
-    for (let k = 0; k < currentPokemon['name'].length; j++) {
+    for (let k = 0; k < loadedPokemon; k++) {
         let pokemonName = currentPokemon['name'];
-        pokemon.innerHTML += `
+        let search = document.getElementById('search').value;
+        result = '';
+        if (result = pokemonName.includes(search)) {
+            pokemon.innerHTML += `
         <div class="pokedex" id="pokedex${k}">           
             <img class="pokemonImg" id="pokemonImg${k}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${k}">
@@ -148,5 +151,9 @@ function templateOverlay(i, pokemonImg) {
             </div>
         </div>    
         `;
+        } else {
+            alert('Pokemon konnte nicht gefunden werden.')
+        }
+
     }
-} */
+}
