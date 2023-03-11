@@ -1,7 +1,7 @@
 let currentPokemon;
 let loadedPokemon = 33;
 let currentlyLoaded = 1;
-
+let pokemonList = [];
 
 function init() {
     loadPokemon();
@@ -14,8 +14,10 @@ async function loadPokemon() {
         currentPokemon = await response.json();
         console.log('Loaded ', currentPokemon);
 
+        pokemonList.push(currentPokemon);
+
         document.getElementById('pokemon').innerHTML += `
-        <div class="pokedex" id="pokedex${i}">           
+        <div class="pokedex" id="pokedex${i}" onclick="openImage(${i}), scrollStop()">           
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
@@ -40,8 +42,6 @@ function renderPokemonInfo(i) {
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
-    document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
 
 function renderPokemonTypes(i) {
@@ -114,46 +114,53 @@ function scrollStart() {
     document.getElementById('body').classList.remove('scrollStop');
 }
 
-function templateOverlay(i, pokemonImg) {
+function templateOverlay(i) {
+    renderPokemonInfo(i);
+    renderPokemonTypes(i);
+
     return `
-    <div class="pokemonDetails">
-        <span class="close" onclick="closeImage(), scrollStart()">&times;</span>
-        <div class="overlay-bgr"></div>
-        <img class="zoomedImage" src="${pokemonImg[i]}">
-        <div id="backward" class="backward" onclick="backward(${i})"><img src="img/backward.png"></div>
-        <div id="forward" class="forward" onclick="forward(${i})"><img src="img/forward.png"></div>
-    </div>
-    `
-}
-
-function searchPokemon() {
-    let pokemon = document.getElementById('pokemon');
-    pokemon.innerHTML = '';
-
-    for (let k = 0; k < loadedPokemon; k++) {
-        let pokemonName = currentPokemon['name'];
-        let search = document.getElementById('search').value;
-        result = '';
-        if (result = pokemonName.includes(search)) {
-            pokemon.innerHTML += `
-        <div class="pokedex" id="pokedex${k}">           
-            <img class="pokemonImg" id="pokemonImg${k}" src="" alt="">
-            <div class="pokemoncard" id="pokemoncard${k}">
+        <div class="pokedex" id="pokedex${i}" onclick="openImage(${i}), scrollStop()">           
+            <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
+            <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
                     <div class="nameAndId">
-                        <h3 id="pokemonId${k}"></h3>
-                        <h3 id="pokemonName${k}"></h3>
+                        <h3 id="pokemonId${i}"></h3>
+                        <h3 id="pokemonName${i}"></h3>
                     </div>
                     <div class="types">
-                        <span id="types${k}"></span>
+                        <span id="types${i}"></span>
                     </div>
                 </div>
             </div>
         </div>    
         `;
-        } else {
-            alert('Pokemon konnte nicht gefunden werden.')
-        }
 
+}
+
+function searchPokemon(i) {
+    let search = document.getElementById('search').value;
+    search = search.toLowerCase();
+
+    for (let j = currentlyLoaded; j < loadedPokemon; j++) {
+        let filteredPokemon = currentPokemon[j]['name'].toLowerCase();
+
+        const result = pokemonList.filter(pokemon => pokemon.includes(search));
+        document.getElementById('pokemon').innerHTML = '';
+        document.getElementById('pokemon').innerHTML += `
+            <div class="pokedex" id="pokedex${i}">           
+                <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
+                <div class="pokemoncard" id="pokemoncard${i}">
+                    <div class="pokemondetails">
+                        <div class="nameAndId">
+                            <h3 id="pokemonId${i}"></h3>
+                            <h3 id="pokemonName${i}"></h3>
+                        </div>
+                        <div class="types">
+                            <span id="types${i}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            `;
     }
 }
