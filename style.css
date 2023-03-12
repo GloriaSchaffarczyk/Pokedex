@@ -262,6 +262,12 @@ button {
     cursor: pointer;
  }
 
+ .scrollStop {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+ }
+
 
 
 @media (max-width: 500px) and (min-width: 421px) {

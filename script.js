@@ -1,4 +1,3 @@
-let currentPokemon;
 let loadedPokemon = 33;
 let currentlyLoaded = 1;
 let pokemonList = [];
@@ -32,19 +31,19 @@ async function loadPokemon() {
             </div>
         </div>    
         `;
-        renderPokemonInfo(i);
-        renderPokemonTypes(i);
+        renderPokemonInfo(i, currentPokemon);
+        renderPokemonTypes(i, currentPokemon);
     }
 }
 
-function renderPokemonInfo(i) {
+function renderPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
 }
 
-function renderPokemonTypes(i) {
+function renderPokemonTypes(i, currentPokemon) {
     for (let j = 0; j < currentPokemon['types'].length; j++) {
         let pokemonType = currentPokemon['types'][j]['type']['name'];
         document.getElementById(`types${i}`).innerHTML += `
@@ -76,17 +75,19 @@ function loadMorePokemon() {
 }
 
 function openImage(i) {
+    let Pokemon = pokemonList[i-1];
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('d-none');
     overlay.innerHTML = templateOverlay(i);
-    let pokemon = pokemonList[i -1];
-    renderPokemonInfo(i, pokemon);
-    renderPokemonTypes(i, pokemon);
+    scrollStop();
+    renderPokemonInfo(i, Pokemon);
+    renderPokemonTypes(i, Pokemon);
 }
 
 function closeImage() {
     let overlay = document.getElementById('overlay');
     overlay.classList.add('d-none');
+    scrollStart();
 }
 
 function backward(i, loadedPokemon) {
@@ -119,7 +120,7 @@ function scrollStart() {
 
 function templateOverlay(i) {
     return `
-        <div class="pokedex" id="pokedex${i}" onclick="openImage(${i}), scrollStop()">           
+        <div class="pokedex" id="pokedex${i}" onclick="closeImage(${i})">           
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
