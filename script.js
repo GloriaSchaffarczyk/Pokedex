@@ -33,7 +33,7 @@ async function loadPokemon() {
         </div>    
         `;
         renderPokemonInfo(i);
-        renderPokemonTypes(i)
+        renderPokemonTypes(i);
     }
 }
 
@@ -79,6 +79,9 @@ function openImage(i) {
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('d-none');
     overlay.innerHTML = templateOverlay(i);
+    let pokemon = pokemonList[i -1];
+    renderPokemonInfo(i, pokemon);
+    renderPokemonTypes(i, pokemon);
 }
 
 function closeImage() {
@@ -115,9 +118,6 @@ function scrollStart() {
 }
 
 function templateOverlay(i) {
-    renderPokemonInfo(i);
-    renderPokemonTypes(i);
-
     return `
         <div class="pokedex" id="pokedex${i}" onclick="openImage(${i}), scrollStop()">           
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
@@ -134,33 +134,4 @@ function templateOverlay(i) {
             </div>
         </div>    
         `;
-
-}
-
-function searchPokemon(i) {
-    let search = document.getElementById('search').value;
-    search = search.toLowerCase();
-
-    for (let j = currentlyLoaded; j < loadedPokemon; j++) {
-        let filteredPokemon = currentPokemon[j]['name'].toLowerCase();
-
-        const result = pokemonList.filter(pokemon => pokemon.includes(search));
-        document.getElementById('pokemon').innerHTML = '';
-        document.getElementById('pokemon').innerHTML += `
-            <div class="pokedex" id="pokedex${i}">           
-                <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
-                <div class="pokemoncard" id="pokemoncard${i}">
-                    <div class="pokemondetails">
-                        <div class="nameAndId">
-                            <h3 id="pokemonId${i}"></h3>
-                            <h3 id="pokemonName${i}"></h3>
-                        </div>
-                        <div class="types">
-                            <span id="types${i}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>    
-            `;
-    }
 }
