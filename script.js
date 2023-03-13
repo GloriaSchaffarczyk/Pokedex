@@ -130,6 +130,7 @@ function templateOverlay(i) {
                     </div>
                     <div class="types">
                         <span id="types${i}"></span>
+                        <span id="pokemonWeight${i}"></span>
                     </div>
                 </div>
             </div>
