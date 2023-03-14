@@ -16,7 +16,7 @@ async function loadPokemon() {
         pokemonList.push(currentPokemon);
 
         document.getElementById('pokemon').innerHTML += `
-        <div class="pokedex" id="pokedex${i}" onclick="openImage(${i}), scrollStop()">           
+        <div class="pokedex" id="pokedex${i}" onclick="openImage(${i})">           
             <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
@@ -137,3 +137,11 @@ function templateOverlay(i) {
         </div>    
         `;
 }
+
+// startsWith
+
+// includes // 
+// Filter // bekommt man ein neues Array raus
+// Find
+
+// Angular Udemy Maximilian Schwarzmüller
