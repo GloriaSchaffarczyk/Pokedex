@@ -138,6 +138,24 @@ function templateOverlay(i) {
         `;
 }
 
+function searchPokemon(i, currentPokemon) {
+    let search = document.getElementById('search').value;
+    search = search.toLowerCase();
+    pokemonList.startsWith(search);
+
+    document.getElementById('pokemon').innerHTML = '';
+
+    for (let j = 0; j < currentPokemon['name']; j++) {
+        const pokemonName = currentPokemon['name'][j];
+        if (pokemonName.includes(search)) {
+            document.getElementById(`pokedex${i}`).innerHTML += `
+            <div class="types-container${i}">
+                <div class="type-icons">${getPokemonColors(pokemonName)}</div>
+            </div>`; 
+        }  
+    }
+}
+
 // startsWith
 
 // includes // 
