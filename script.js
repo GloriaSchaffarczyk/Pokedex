@@ -138,23 +138,39 @@ function templateOverlay(i) {
         `;
 }
 
-function searchPokemon(i, currentPokemon) {
+function searchPokemon(event) {
+    event.preventDefault();
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
-    pokemonList.startsWith(search);
 
     document.getElementById('pokemon').innerHTML = '';
 
-    for (let j = 0; j < currentPokemon['name']; j++) {
-        const pokemonName = currentPokemon['name'][j];
-        if (pokemonName.includes(search)) {
-            document.getElementById(`pokedex${i}`).innerHTML += `
-            <div class="types-container${i}">
-                <div class="type-icons">${getPokemonColors(pokemonName)}</div>
-            </div>`; 
-        }  
+    for (let i = 1; i <= pokemonList.length; i++) {
+        const currentPokemon = pokemonList[i];
+        const pokemonName = currentPokemon['name'];
+        if (pokemonName.startsWith(search)) {
+            document.getElementById('pokemon').innerHTML += `
+            <div class="pokedex" id="pokedex${i}" onclick="openImage(${i})">           
+                <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
+                <div class="pokemoncard" id="pokemoncard${i}">
+                    <div class="pokemondetails">
+                        <div class="nameAndId">
+                            <h3 id="pokemonId${i}"></h3>
+                            <h3 id="pokemonName${i}"></h3>
+                        </div>
+                        <div class="types">
+                            <span id="types${i}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            `;
+            renderPokemonInfo(i, currentPokemon);
+            renderPokemonTypes(i, currentPokemon);
+        }
     }
 }
+
 
 // startsWith
 
