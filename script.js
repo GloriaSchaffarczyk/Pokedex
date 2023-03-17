@@ -145,7 +145,7 @@ function searchPokemon(event) {
 
     document.getElementById('pokemon').innerHTML = '';
 
-    for (let i = 1; i <= pokemonList.length; i++) {
+    for (let i = 0; i <= pokemonList.length -1; i++) {
         const currentPokemon = pokemonList[i];
         const pokemonName = currentPokemon['name'];
         if (pokemonName.startsWith(search)) {
@@ -171,11 +171,3 @@ function searchPokemon(event) {
     }
 }
 
-
-// startsWith
-
-// includes // 
-// Filter // bekommt man ein neues Array raus
-// Find
-
-// Angular Udemy Maximilian Schwarzmüller
