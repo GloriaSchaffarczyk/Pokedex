@@ -145,7 +145,7 @@ function searchPokemon(event) {
 
     document.getElementById('pokemon').innerHTML = '';
 
-    for (let i = 0; i <= pokemonList.length -1; i++) {
+    for (let i = 0; i < pokemonList.length; i++) {
         const currentPokemon = pokemonList[i];
         const pokemonName = currentPokemon['name'];
         if (pokemonName.startsWith(search)) {
