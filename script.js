@@ -49,8 +49,20 @@ function getPokemonColors(pokemonType) {
 `;
 }
 
+function getPokemonBackgroundColors(pokemonType) {
+    return `
+<img src="img/types-background/${pokemonType}.png"></img>
+`;
+}
+
 function getBorderColor(i, pokemonType) {
     document.getElementById(`pokemoncard${i}`).classList.add(pokemonType);
+}
+
+function getOverlayBackground(pokemonType) {
+    let overlayPokedex = document.querySelector('.overlayPokedex');
+    let overlayBackground = `url('img/types-background/${pokemonType}.png')`;
+    overlayPokedex.style.backgroundImage = overlayBackground;
 }
 
 function capitalizeFirstLetter(currentPokemon) {
@@ -71,6 +83,7 @@ function openImage(id) {
     scrollStop();
     renderOverlayPokemonInfo(id, Pokemon);
     renderPokemonTypes(id, Pokemon);
+    getOverlayBackground(Pokemon['types'][0]['type']['name']);
 }
 
 
@@ -85,7 +98,7 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
-    document.getElementById(`pokemonWeight${i}`).innerHTML = currentPokemon['weight'] + 'pounds';
+    document.getElementById(`pokemonWeight${i}`).innerHTML = currentPokemon['weight'] + ' lbs';
 }
 
 function backward(i, loadedPokemon) {
