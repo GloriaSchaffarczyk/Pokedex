@@ -104,7 +104,7 @@ button {
 
 .overlayPokemoncard {
     background-color: rgb(0, 0, 0);
-    border: 4px solid;
+    /* border: 4px solid; */
     border-radius: 6px;
     border-color: black;
     color: white;
@@ -112,24 +112,31 @@ button {
     justify-content: flex-start;
     padding-left: 12px;
     margin: 18px;
-    top: 128px;
-    left: -2px;
-    width: 248px;
-    height: 330px;
+    top: 184px;
+    left: -10px;
+    width: 271px;
+    height: 391px;
     position: absolute;
 }
 
 
 .overlayPokemondetails {
-    width: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 
 .overlayPokedex {
     position: relative;
-    background-color: white;
-    height: 500px;
+    background-color: rgb(83, 79, 79);
+    height: 600px;
     width: 300px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 6px;
 }
 
 .overlayPokemonImg {
@@ -137,7 +144,7 @@ button {
     height: 160px;
     position: absolute;
     right: 68px;
-    top: 13px;
+    top: 42px;
     z-index: 2;
     /* -webkit-box-shadow: 0px 0px 20px 3px rgb(244, 61, 97);
     -moz-box-shadow: 0px 0px 20px 3px rgb(244, 61, 97);
@@ -146,6 +153,30 @@ button {
 
 .overlayPokemonImg img {
     filter: none;
+}
+
+.overlayNameAndId {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.likeAndCloseIcons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.likeAndCloseIcons img {
+    width: 24px;
+    height: 24px;
+    transition: 0.3s;
+    margin: 16px;
+}
+
+.likeAndCloseIcons img:hover {
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .type-icons img {
@@ -160,11 +191,6 @@ button {
 
 .weight {
     color: white;
-}
-
-.overlayNameAndId {
-    display: flex;
-    gap: 8px;
 }
 
 /* Button */
@@ -326,22 +352,6 @@ button {
     /* css standard */
     filter: alpha(opacity=100);
     /* internet explorer */
-    cursor: pointer;
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #8b8b8b;
-    font-size: 80px;
-    font-weight: bold;
-    transition: 0.3s;
-    z-index: 3;
-}
-
-.close:hover {
-    color: #ffffff;
     cursor: pointer;
 }
 

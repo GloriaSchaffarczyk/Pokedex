@@ -99,6 +99,7 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
     document.getElementById(`pokemonWeight${i}`).innerHTML = currentPokemon['weight'] + ' lbs';
+    document.getElementById(`pokemonHeight${i}`).innerHTML = currentPokemon['height'] + ' m';
 }
 
 function backward(i, loadedPokemon) {
@@ -175,20 +176,28 @@ function loadPokemonHTML(index, currentPokemon) {
 
 function templateOverlay(i) {
     return `
-        <div class="overlayPokedex" id="pokedex${i}" onclick="closeImage(${i})">           
+        <div class="overlayPokedex" id="pokedex${i}" onclick="closeImage(${i})">
+            <div class="likeAndCloseIcons">  
+                <img class="whiteHeart" src="img/white.png">
+                <img class="close" src="img/close.png">
+            </div>          
             <img class="overlayPokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="overlayPokemoncard" id="pokemoncard${i}">
                 <div class="overlayPokemondetails">
                     <div class="overlayNameAndId">
                         <h3 id="pokemonId${i}"></h3>
-                        <h3 id="pokemonName${i}"></h3>
+                        <h2 id="pokemonName${i}"></h2>
                     </div>
                     <div class="overlayTypes">
                         <span id="types${i}"></span>
                     </div>
                     <div class="weight">
-                    <span id="pokemonWeight${i}"></span>
+                        <h3 id="pokemonWeight${i}"></h3>
                     </div>
+                    <div class="height">
+                    <h3 id="pokemonHeight${i}"></h3>
+                    </div>
+                    <h3 class="stats">Base stats</h3>
                 </div>
             </div>
         </div>    
