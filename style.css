@@ -312,7 +312,7 @@ button {
     overflow: hidden;
 }
 
-/* Button */
+/* Buttons */
 
 
 .loadMoreButton {
@@ -380,6 +380,16 @@ button {
 .box:hover i {
     opacity: 0;
     z-index: -1;
+}
+
+.overlayNavigation button {
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    margin-top: 40px;
+    border: solid 2px white;
+    border-radius: 6px;
+    padding: 12px;
 }
 
 .d-none {

@@ -221,17 +221,16 @@ function templateOverlay(i) {
                             <h4>Weight</h4>
                         </div>
                         <div class="height">
-                        <h2 id="pokemonHeight${i}"></h2>
+                            <h2 id="pokemonHeight${i}"></h2>
                             <h4>Height</h4>
                         </div>
                     </div>
                     <div class="overlayNavigation">
-                        <h3 class="stats">Base stats</h3>
-                        <h3 class="attacks">Attacks</h3>
-                    <div>
+                        <button class="stats">Base stats</button>
+                        <button class="attacks">Attacks</button>
+                    </div>
                 </div>
             </div>
-        </div>    
-        `;
+        </div>`;
 }
 
