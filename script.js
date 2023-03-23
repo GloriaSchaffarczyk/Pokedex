@@ -24,7 +24,7 @@ async function loadPokemon() {
 }
 
 function renderPokemonInfo(i, currentPokemon) {
-    document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'].charAt(0).toUpperCase();
+    document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
@@ -83,7 +83,7 @@ function searchPokemon(event) {
         const currentPokemon = pokemonList[i];
         const pokemonName = currentPokemon['name'];
         if (pokemonName.startsWith(search)) {
-            document.getElementById('pokemon').innerHTML += loadPokemonHTML(index, currentPokemon);
+            document.getElementById('pokemon').innerHTML += loadPokemonHTML(i, currentPokemon);
             renderPokemonInfo(i, currentPokemon);
             renderPokemonTypes(i, currentPokemon);
         }
@@ -103,7 +103,7 @@ function openOverlay(id) {
     let Pokemon = pokemonList.find(pokemon => pokemon.id === id);
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('d-none');
-    overlay.innerHTML = templateOverlay(id);
+    overlay.innerHTML = templateOverlay(id, loadedPokemon);
     scrollStop();
     renderOverlayPokemonInfo(id, Pokemon);
     renderOverlayPokemonTypes(id, Pokemon);
@@ -125,25 +125,26 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonHeight${i}`).innerHTML = (currentPokemon['height'] / 10).toFixed(1) + ' m';
 }
 
-function backward(i, loadedPokemon) {
+function backward(i, id) {
     if (i !== 0) {
         i--
     } else {
-        i = loadedPokemon - 1
+        i = pokemonList.length - 1
     }
     document.getElementById('overlay').innerHTML = ``;
-    openOverlay(i);
+    openOverlay(id);
 }
 
-function forward(i, loadedPokemon) {
-    if (i < loadedPokemon - 1) {
+function forward(i, id) {
+    if (i < pokemonList.length - 1) {
         i++
     } else {
         i = 0
     }
     document.getElementById('overlay').innerHTML = ``;
-    openOverlay(i);
+    openOverlay(id);
 }
+
 
 function scrollStop() {
     document.getElementById('body').classList.add('scrollStop');
@@ -169,29 +170,23 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
     getBorderColor(i, currentPokemon['types'][0]['type']['name']);
 }
 
-function getPokemonColors(pokemonType) {
-    return `
-<img src="img/types/${pokemonType}.png"></img>
-`;
-}
-
 
 
 
 // HTML templates
 
-function loadPokemonHTML(index, currentPokemon) {
+function loadPokemonHTML(i, currentPokemon) {
     return `
-        <div class="pokedex" id="pokedex${index}" onclick="openOverlay(${currentPokemon.id})">           
-            <img class="pokemonImg" id="pokemonImg${index}" src="" alt="">
-            <div class="pokemoncard" id="pokemoncard${index}">
+        <div class="pokedex" id="pokedex${i}" onclick="openOverlay(${currentPokemon.id})">           
+            <img class="pokemonImg" id="pokemonImg${i}" src="" alt="">
+            <div class="pokemoncard" id="pokemoncard${i}">
                 <div class="pokemondetails">
                     <div class="nameAndId">
-                        <h3 id="pokemonId${index}"></h3>
-                        <h3 id="pokemonName${index}"></h3>
+                        <h3 id="pokemonId${i}"></h3>
+                        <h3 id="pokemonName${i}"></h3>
                     </div>
                     <div class="types">
-                        <span id="types${index}"></span>
+                        <span id="types${i}"></span>
                     </div>
                 </div>
             </div>
@@ -199,15 +194,19 @@ function loadPokemonHTML(index, currentPokemon) {
     `;
 }
 
-function templateOverlay(i) {
+function templateOverlay(i, id, loadedPokemon) {
     return `
-        <div class="overlayPokedex" id="pokedex${i}" onclick="closeOverlay(${i})">
+        <div class="overlayPokedex" id="pokedex${i}">
             <div class="closeIcon">  
                 <h2 class="overlayNumber" id="pokemonId${i}"></h2>
-                <img class="close" src="img/close.png">
+                <img class="close" src="img/close.png" onclick="closeOverlay(${i})">
             </div>          
             <img class="overlayPokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="overlayPokemoncard" id="pokemoncard${i}">
+                <div class="backwardAndForward">
+                    <img class="backward" src="img/backward.png" onclick="backward(${id}, ${loadedPokemon})">
+                    <img class="forward" src="img/forward.png" onclick="forward(${id}, ${loadedPokemon})">
+                </div>
                 <div class="overlayPokemondetails">
                     <div class="overlayNameAndId">
                         <h1 id="pokemonName${i}"></h1>

@@ -269,15 +269,16 @@ button {
 }
 
 .backward {
-    padding: 25px;
+    width: 32px;
+    height: 32px;
+    top: 56px;
+    left: 10px;
     z-index: 3;
     opacity: 0.6;
     /* css standard */
     filter: alpha(opacity=60);
     /* internet explorer */
     position: absolute;
-    top: 50%;
-    left: 200px;
 }
 
 .backward:hover {
@@ -289,10 +290,11 @@ button {
 }
 
 .forward {
+    width: 32px;
+    height: 32px;
     position: absolute;
-    top: 50%;
-    right: 200px;
-    padding: 25px;
+    right: 10px;
+    top: 56px;
     z-index: 3;
     opacity: 0.6;
     /* css standard */
