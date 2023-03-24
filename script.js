@@ -125,26 +125,25 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonHeight${i}`).innerHTML = (currentPokemon['height'] / 10).toFixed(1) + ' m';
 }
 
-function backward(i, id) {
-    if (i !== 0) {
-        i--
+function backward(i) {
+    if (i !== 1) {
+        i--;
     } else {
-        i = pokemonList.length - 1
+        i = pokemonList.length;
     }
     document.getElementById('overlay').innerHTML = ``;
-    openOverlay(id);
+    openOverlay(i);
 }
 
-function forward(i, id) {
-    if (i < pokemonList.length - 1) {
-        i++
+function forward(i) {
+    if (i < pokemonList.length) {
+        i++;
     } else {
-        i = 0
+        i = 1;
     }
     document.getElementById('overlay').innerHTML = ``;
-    openOverlay(id);
+    openOverlay(i);
 }
-
 
 function scrollStop() {
     document.getElementById('body').classList.add('scrollStop');
@@ -194,7 +193,7 @@ function loadPokemonHTML(i, currentPokemon) {
     `;
 }
 
-function templateOverlay(i, id, loadedPokemon) {
+function templateOverlay(i) {
     return `
         <div class="overlayPokedex" id="pokedex${i}">
             <div class="closeIcon">  
@@ -204,8 +203,8 @@ function templateOverlay(i, id, loadedPokemon) {
             <img class="overlayPokemonImg" id="pokemonImg${i}" src="" alt="">
             <div class="overlayPokemoncard" id="pokemoncard${i}">
                 <div class="backwardAndForward">
-                    <img class="backward" src="img/backward.png" onclick="backward(${id}, ${loadedPokemon})">
-                    <img class="forward" src="img/forward.png" onclick="forward(${id}, ${loadedPokemon})">
+                    <img class="backward" src="img/backward.png" onclick="backward(${i})">
+                    <img class="forward" src="img/forward.png" onclick="forward(${i})">
                 </div>
                 <div class="overlayPokemondetails">
                     <div class="overlayNameAndId">
