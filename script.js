@@ -32,7 +32,7 @@ function renderPokemonInfo(i, currentPokemon) {
 
 function renderPokemonTypes(i, currentPokemon) {
     document.getElementById(`types${i}`).innerHTML = '';
-    
+
     for (let j = 0; j < currentPokemon['types'].length; j++) {
         let pokemonType = currentPokemon['types'][j]['type']['name'];
         document.getElementById(`types${i}`).innerHTML += `
@@ -121,7 +121,7 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
-    document.getElementById(`pokemonWeight${i}`).innerHTML = (currentPokemon['weight'] /10).toFixed(1) + ' kg';
+    document.getElementById(`pokemonWeight${i}`).innerHTML = (currentPokemon['weight'] / 10).toFixed(1) + ' kg';
     document.getElementById(`pokemonHeight${i}`).innerHTML = (currentPokemon['height'] / 10).toFixed(1) + ' m';
 }
 
@@ -155,7 +155,7 @@ function scrollStart() {
 
 function renderOverlayPokemonTypes(i, currentPokemon) {
     document.getElementById(`overlayTypes${i}`).innerHTML = '';
-    
+
     for (let k = 0; k < currentPokemon['types'].length; k++) {
         let pokemonType = currentPokemon['types'][k]['type']['name'];
         document.getElementById(`overlayTypes${i}`).innerHTML += `
@@ -169,6 +169,38 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
     getBorderColor(i, currentPokemon['types'][0]['type']['name']);
 }
 
+function showAttacks() {
+    document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
+    document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    `;
+}
+
+
+// chart
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 
 
 
@@ -206,28 +238,30 @@ function templateOverlay(i) {
                     <img class="backward" src="img/backward.png" onclick="backward(${i})">
                     <img class="forward" src="img/forward.png" onclick="forward(${i})">
                 </div>
-                <div class="overlayPokemondetails">
-                    <div class="overlayNameAndId">
-                        <h1 id="pokemonName${i}"></h1>
-                    </div>
-                    <div class="overlayTypes">
-                        <span id="overlayTypes${i}"></span>
-                    </div>
-                    <div class="weightAndHeight">
-                        <div class="weight">
-                            <h2 id="pokemonWeight${i}"></h2>
-                            <h4>Weight</h4>
+                    <div class="overlayPokemondetails">
+                            <div class="overlayNameAndId">
+                                <h1 id="pokemonName${i}"></h1>
+                            </div>
+                        <div id="overlayPokemonInnerCard">
+                            <div class="overlayTypes">
+                                <span id="overlayTypes${i}"></span>
+                            </div>
+                            <div class="weightAndHeight">
+                                <div class="weight">
+                                    <h2 id="pokemonWeight${i}"></h2>
+                                    <h4>Weight</h4>
+                                </div>
+                                <div class="height">
+                                    <h2 id="pokemonHeight${i}"></h2>
+                                    <h4>Height</h4>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="overlayNavigation">
+                            <button class="stats" onclick="showStats()">Base stats</button>
+                            <button class="attacks" onclick="showAttacks()">Attacks</button>
                         </div>
-                        <div class="height">
-                            <h2 id="pokemonHeight${i}"></h2>
-                            <h4>Height</h4>
-                        </div>
                     </div>
-                    <div class="overlayNavigation">
-                        <button class="stats">Base stats</button>
-                        <button class="attacks">Attacks</button>
-                    </div>
-                </div>
             </div>
         </div>`;
 }
