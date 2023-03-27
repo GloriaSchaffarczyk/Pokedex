@@ -123,7 +123,6 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
     document.getElementById(`pokemonWeight${i}`).innerHTML = (currentPokemon['weight'] / 10).toFixed(1) + ' kg';
     document.getElementById(`pokemonHeight${i}`).innerHTML = (currentPokemon['height'] / 10).toFixed(1) + ' m';
-    showMoves(i, currentPokemon);
 }
 
 function backward(i) {
@@ -172,26 +171,37 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
 
 // RENDERING MOVES //
 
+function renderPokemonMoves(i, currentPokemon) {
+    let movesContainer = document.getElementById('overlayPokemonInnerCard');
+    movesContainer.innerHTML = '';
+
+    let moveDivContainer = document.createElement('div');
+    moveDivContainer.classList.add('move-container');
+
+    for (let j = 0; j < currentPokemon['moves'].length; j++) {
+        let move = currentPokemon['moves'][j]['move']['name'];
+        moveDivContainer.innerHTML += `<div class="move">${move}</div>`;
+    }
+    movesContainer.appendChild(moveDivContainer);
+}
 
 // CHARTS //
 
-function showMoves(i, currentPokemon) {
-    document.getElementById(`pokemonMoves${i}`).innerHTML = '';
-
-    for (let j = 0; j < currentPokemon['moves'].length; j++) {
-        let moveName = currentPokemon['moves'][j]['move']['name'];
-        document.getElementById(`pokemonMoves${i}`).innerHTML += `
-            <div class="move">
-                ${moveName}
-            </div>`;
+function showMoves(i) {
+    let currentPokemon = pokemonList[i - 1];
+    if (currentPokemon) {
+        renderPokemonMoves(i, currentPokemon);
+    } else {
+        console.error(`Pokemon with index ${i} not found.`);
     }
 }
+
 
 function showStats() {
     document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
     document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
     <div>
-        <div id="myChartStats"></div>
+        <canvas id="myChartStats"></canvas>
     </div>
     `;
     
@@ -275,7 +285,8 @@ function templateOverlay(i) {
                         </div>    
                         <div class="overlayNavigation">
                             <button class="stats" onclick="showStats()">Stats</button>
-                            <button class="moves" onclick="showMoves()">Moves</button>
+                            <button class="moves" onclick="showMoves(${i})">Moves</button>
+
                         </div>
                     </div>
             </div>

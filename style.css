@@ -268,6 +268,22 @@ button {
     width: 100%;
 }
 
+.move-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 143px;
+    width: 239px;
+}
+
+.move {
+    padding: 6px;
+    border: 1px solid white;
+    margin: 6px;
+    border-radius: 5px;
+}
+
 .backward {
     width: 32px;
     height: 32px;
@@ -312,6 +328,16 @@ button {
 
 .scrollStop {
     overflow: hidden;
+}
+
+.moves {
+    margin: 4px;
+    border: 1px solid white;
+    text-align: center;
+}
+
+#myChartStats {
+    width: 270px;
 }
 
 /* Buttons */
@@ -431,6 +457,30 @@ button {
     right: 22px;
     top: 2px;
 }
+
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border: 1px solid white;
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffffff; 
+  }
 
 
 /* Media Queries */
