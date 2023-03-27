@@ -70,7 +70,7 @@ function loadMorePokemon() {
 }
 
 
-// search
+// SEARCH //
 
 function searchPokemon(event) {
     event.preventDefault();
@@ -91,7 +91,7 @@ function searchPokemon(event) {
 }
 
 
-// Overlay
+// OVERLAY //
 
 function getOverlayBackground(pokemonType) {
     let overlayPokedex = document.querySelector('.overlayPokedex');
@@ -123,6 +123,7 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
     document.getElementById(`pokemonWeight${i}`).innerHTML = (currentPokemon['weight'] / 10).toFixed(1) + ' kg';
     document.getElementById(`pokemonHeight${i}`).innerHTML = (currentPokemon['height'] / 10).toFixed(1) + ' m';
+    showMoves(i, currentPokemon);
 }
 
 function backward(i) {
@@ -169,42 +170,57 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
     getBorderColor(i, currentPokemon['types'][0]['type']['name']);
 }
 
-function showAttacks() {
+// RENDERING MOVES //
+
+
+// CHARTS //
+
+function showMoves(i, currentPokemon) {
+    document.getElementById(`pokemonMoves${i}`).innerHTML = '';
+
+    for (let j = 0; j < currentPokemon['moves'].length; j++) {
+        let moveName = currentPokemon['moves'][j]['move']['name'];
+        document.getElementById(`pokemonMoves${i}`).innerHTML += `
+            <div class="move">
+                ${moveName}
+            </div>`;
+    }
+}
+
+function showStats() {
     document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
     document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
     <div>
-        <canvas id="myChart"></canvas>
+        <div id="myChartStats"></div>
     </div>
     `;
-}
-
-
-// chart
-
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-    type: 'bar',
-    data: {
+    
+    // Daten für Statistik-Chart
+    const dataStats = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             borderWidth: 1
         }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
+    };
+    
+    // Chart für Statistik-Canvas erstellen
+    const ctxStats = document.getElementById('myChartStats');
+    new Chart(ctxStats, {
+        type: 'bar',
+        data: dataStats,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
         }
-    }
-});
+    });
+}
 
-
-
-// HTML templates
+// HTML TEMPLATES //
 
 function loadPokemonHTML(i, currentPokemon) {
     return `
@@ -258,8 +274,8 @@ function templateOverlay(i) {
                             </div>
                         </div>    
                         <div class="overlayNavigation">
-                            <button class="stats" onclick="showStats()">Base stats</button>
-                            <button class="attacks" onclick="showAttacks()">Attacks</button>
+                            <button class="stats" onclick="showStats()">Stats</button>
+                            <button class="moves" onclick="showMoves()">Moves</button>
                         </div>
                     </div>
             </div>
