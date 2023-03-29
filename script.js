@@ -185,6 +185,16 @@ function renderPokemonMoves(i, currentPokemon) {
     movesContainer.appendChild(moveDivContainer);
 }
 
+// RENDERING DATA //
+
+function renderPokemonStats(currentPokemon) {
+
+    for (let j = 0; j < currentPokemon['stats'].length; j++) {
+        let data = currentPokemon['stats'][j]['base_stat'];
+    }
+    showStats(data);
+}
+
 // CHARTS //
 
 function showMoves(i) {
