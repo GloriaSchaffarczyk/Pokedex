@@ -187,13 +187,7 @@ function renderPokemonMoves(i, currentPokemon) {
 
 // RENDERING DATA //
 
-function renderPokemonStats(currentPokemon) {
 
-    for (let j = 0; j < currentPokemon['stats'].length; j++) {
-        let data = currentPokemon['stats'][j]['base_stat'];
-    }
-    showStats(data);
-}
 
 // CHARTS //
 
@@ -206,39 +200,91 @@ function showMoves(i) {
     }
 }
 
-
-function showStats() {
-    document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
-    document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
-    <div>
-        <canvas id="myChartStats"></canvas>
-    </div>
-    `;
-    
-    // Daten für Statistik-Chart
-    const dataStats = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-        }]
-    };
-    
-    // Chart für Statistik-Canvas erstellen
-    const ctxStats = document.getElementById('myChartStats');
-    new Chart(ctxStats, {
-        type: 'bar',
-        data: dataStats,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+function extractStatsData(currentPokemon) {
+    let statsData = [];
+    for (let j = 0; j < currentPokemon['stats'].length; j++) {
+        statsData.push(currentPokemon['stats'][j]['base_stat']);
+    }
+    return statsData;
 }
+
+function showStats(i) {
+    let currentPokemon = pokemonList[i - 1];
+    if (currentPokemon) {
+        const statsData = extractStatsData(currentPokemon);
+
+        document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
+        document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
+        <div>
+            <canvas id="myChartStats"></canvas>
+        </div>
+        `;
+        
+        // Daten für Statistik-Chart
+        const dataStats = {
+            labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
+            datasets: [{
+                label: 'Stats',
+                data: statsData,
+                Color:  [
+                    'rgba(255, 255, 255, 0.8)',
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 2,
+                borderRadius: 5
+            }]
+        };
+        
+        // Chart für Statistik-Canvas erstellen
+        const ctxStats = document.getElementById('myChartStats');
+        new Chart(ctxStats, {
+            type: 'bar',
+            data: dataStats,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                        },
+                    },
+                    x: {
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                        },
+                    },
+                },
+                // Set the height and width of the chart
+                height: 400,
+                width: 200
+            },
+        });
+    } else {
+        console.error(`Pokemon with index ${i} not found.`);
+    }
+}
+
+
 
 // HTML TEMPLATES //
 
@@ -294,7 +340,7 @@ function templateOverlay(i) {
                             </div>
                         </div>    
                         <div class="overlayNavigation">
-                            <button class="stats" onclick="showStats()">Stats</button>
+                            <button class="stats" onclick="showStats(${i})">Stats</button>
                             <button class="moves" onclick="showMoves(${i})">Moves</button>
 
                         </div>
