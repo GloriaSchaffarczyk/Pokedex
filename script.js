@@ -171,7 +171,7 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
 
 // RENDERING MOVES //
 
-function renderPokemonMoves(i, currentPokemon) {
+function renderPokemonMoves(currentPokemon) {
     let movesContainer = document.getElementById('overlayPokemonInnerCard');
     movesContainer.innerHTML = '';
 
@@ -180,21 +180,18 @@ function renderPokemonMoves(i, currentPokemon) {
 
     for (let j = 0; j < currentPokemon['moves'].length; j++) {
         let move = currentPokemon['moves'][j]['move']['name'];
+        move = move.charAt(0).toUpperCase() + move.slice(1);
         moveDivContainer.innerHTML += `<div class="move">${move}</div>`;
     }
     movesContainer.appendChild(moveDivContainer);
 }
-
-// RENDERING DATA //
-
-
 
 // CHARTS //
 
 function showMoves(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
-        renderPokemonMoves(i, currentPokemon);
+        renderPokemonMoves(currentPokemon);
     } else {
         console.error(`Pokemon with index ${i} not found.`);
     }
@@ -274,9 +271,6 @@ function showStats(i) {
                         },
                     },
                 },
-                // Set the height and width of the chart
-                height: 400,
-                width: 200
             },
         });
     } else {
