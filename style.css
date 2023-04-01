@@ -390,6 +390,12 @@ button {
     transition: .5s;
 }
 
+.input-focused {
+    width: 320px;
+    background: #3b3640;
+    border-radius: 10px;
+}
+
 .box:hover input {
     width: 320px;
     background: #3b3640;
@@ -420,6 +426,7 @@ button {
     border-radius: 6px;
     padding: 12px;
     width: 40%;
+    cursor: pointer;
 }
 
 .d-none {

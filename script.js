@@ -90,6 +90,15 @@ function searchPokemon(event) {
     }
 }
 
+function inputFocus(element) {
+    element.classList.add('input-focused');
+}
+
+function inputBlur(element) {
+    if (element.value.trim() === '') {
+        element.classList.remove('input-focused');
+    }
+}
 
 // OVERLAY //
 
@@ -186,7 +195,7 @@ function renderPokemonMoves(currentPokemon) {
     movesContainer.appendChild(moveDivContainer);
 }
 
-// CHARTS //
+// RENDER MOVES //
 
 function showMoves(i) {
     let currentPokemon = pokemonList[i - 1];
@@ -205,80 +214,88 @@ function extractStatsData(currentPokemon) {
     return statsData;
 }
 
+// CREATE CHART DATA //
+
+function createStatsChartData(statsData) {
+    return {
+        labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
+        datasets: [{
+            label: 'Stats',
+            data: statsData,
+            Color: [
+                'rgba(255, 255, 255, 0.8)',
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2,
+            borderRadius: 5
+        }]
+    };
+}
+
+// CREATE CHART //
+
+function createStatsChart(canvasElementId, data) {
+    const ctxStats = document.getElementById(canvasElementId);
+    new Chart(ctxStats, {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.8)',
+                    },
+                },
+                x: {
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.8)',
+                    },
+                },
+            },
+        },
+    });
+}
+
+// SHOW CHART //
+
 function showStats(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
         const statsData = extractStatsData(currentPokemon);
-
-        document.getElementById(`overlayPokemonInnerCard`).innerHTML = '';
-        document.getElementById(`overlayPokemonInnerCard`).innerHTML += `
+        const overlayPokemonInnerCard = document.getElementById(`overlayPokemonInnerCard`);
+        overlayPokemonInnerCard.innerHTML = '';
+        overlayPokemonInnerCard.innerHTML += `
         <div>
             <canvas id="myChartStats"></canvas>
         </div>
         `;
-        
-        // Daten für Statistik-Chart
-        const dataStats = {
-            labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
-            datasets: [{
-                label: 'Stats',
-                data: statsData,
-                Color:  [
-                    'rgba(255, 255, 255, 0.8)',
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 2,
-                borderRadius: 5
-            }]
-        };
-        
-        // Chart für Statistik-Canvas erstellen
-        const ctxStats = document.getElementById('myChartStats');
-        new Chart(ctxStats, {
-            type: 'bar',
-            data: dataStats,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.8)',
-                        },
-                    },
-                    x: {
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.8)',
-                        },
-                    },
-                },
-            },
-        });
+        const dataStats = createStatsChartData(statsData);
+        createStatsChart('myChartStats', dataStats);
     } else {
         console.error(`Pokemon with index ${i} not found.`);
     }
 }
-
-
 
 // HTML TEMPLATES //
 

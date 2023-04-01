@@ -30,7 +30,7 @@
     <div class="pokemonoverview">
         <div class="box">
             <form name="search" onsubmit="searchPokemon(event)">
-                <input id="search" type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+                <input id="search" type="text" class="input" name="txt" onfocus="inputFocus(this);" onblur="inputBlur(this);" />
             </form>
             <i class="fas fa-search"></i>
         </div>
