@@ -92,11 +92,13 @@ function searchPokemon(event) {
 
 function inputFocus(element) {
     element.classList.add('input-focused');
+    element.placeholder = "Search by name";
 }
 
 function inputBlur(element) {
     if (element.value.trim() === '') {
         element.classList.remove('input-focused');
+        element.placeholder = "";
     }
 }
 
