@@ -12,7 +12,6 @@ async function loadPokemon() {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
-        console.log('Loaded ', currentPokemon);
 
         pokemonList.push(currentPokemon);
 
@@ -64,11 +63,10 @@ function capitalizeFirstLetter(currentPokemon) {
 }
 
 function loadMorePokemon() {
-    currentlyLoaded = loadedPokemon + 1;
+    currentlyLoaded = loadedPokemon;
     loadedPokemon += 33;
     loadPokemon();
 }
-
 
 // SEARCH //
 
@@ -137,10 +135,9 @@ function renderOverlayPokemonInfo(i, currentPokemon) {
 }
 
 function backward(i) {
-    if (i !== 1) {
+    if (i > 1) {
         i--;
     } else {
-        i = pokemonList.length;
     }
     document.getElementById('overlay').innerHTML = ``;
     openOverlay(i);
@@ -150,7 +147,6 @@ function forward(i) {
     if (i < pokemonList.length) {
         i++;
     } else {
-        i = 1;
     }
     document.getElementById('overlay').innerHTML = ``;
     openOverlay(i);
