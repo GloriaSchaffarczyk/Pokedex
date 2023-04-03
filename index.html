@@ -29,15 +29,17 @@
 
     <div class="pokemonoverview">
         <div class="box">
-            <form name="search" onsubmit="searchPokemon(event)">
-                <input id="search" type="text" class="input" name="txt" onfocus="inputFocus(this);" onblur="inputBlur(this);" placeholder="" />
+            <form name="search" onsubmit="searchPokemon(event); return false;">
+                <input required id="search" type="text" class="input" name="txt" onfocus="inputFocus(this);" onblur="inputBlur(this);" placeholder="" />
             </form>
-            <i class="fas fa-search"></i>
-        </div>
+            <i class="fas fa-search" onclick="submitSearch()"></i>
+        </div>        
         <div class="pokemon" id="pokemon">
             <!-- JS Code wird eingefügt -->
         </div>
-        <button class="loadMoreButton" onclick="loadMorePokemon()">Load More</button>
+        <div id="loadMoreButton">
+            <button class="loadMoreButton" onclick="loadMorePokemon()">Load More</button>
+        </div>
     </div>
 </body>
 
