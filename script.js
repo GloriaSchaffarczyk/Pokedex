@@ -225,6 +225,8 @@ function showMoves(i) {
     }
 }
 
+// EXTRACT CHART DATA //
+
 function extractStatsData(currentPokemon) {
     let statsData = [];
     for (let j = 0; j < currentPokemon['stats'].length; j++) {
