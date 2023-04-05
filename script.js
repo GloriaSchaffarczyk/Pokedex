@@ -225,7 +225,7 @@ function showMoves(i) {
     }
 }
 
-// EXTRACT CHART DATA //
+// EXTRACT CHART DATA FROM API //
 
 function extractStatsData(currentPokemon) {
     let statsData = [];
