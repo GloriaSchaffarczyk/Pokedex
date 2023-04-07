@@ -235,7 +235,7 @@ function extractStatsData(currentPokemon) {
     return statsData;
 }
 
-// CREATE CHART DATA //
+// CREATE CHART DATA AND STYLE //
 
 function createStatsChartData(statsData) {
     return {
