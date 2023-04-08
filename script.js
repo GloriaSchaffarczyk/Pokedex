@@ -318,7 +318,7 @@ function showStats(i) {
     }
 }
 
-// HTML TEMPLATES //
+// HTML TEMPLATES FOR RENDERING OVERVIEW AND DETAILS //
 
 function loadPokemonHTML(i, currentPokemon) {
     return `
