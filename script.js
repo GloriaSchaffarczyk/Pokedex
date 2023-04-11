@@ -268,7 +268,7 @@ function createStatsChartData(statsData) {
     };
 }
 
-// CREATE TYPE OF CHART //
+// CREATE TYPE OF CHART: BAR //
 
 function createStatsChart(canvasElementId, data) {
     const ctxStats = document.getElementById(canvasElementId);
