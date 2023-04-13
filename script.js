@@ -374,7 +374,6 @@ function templateOverlay(i) {
                         <div class="overlayNavigation">
                             <button class="stats" onclick="showStats(${i})">Stats</button>
                             <button class="moves" onclick="showMoves(${i})">Moves</button>
-
                         </div>
                     </div>
             </div>
