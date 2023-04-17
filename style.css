@@ -290,25 +290,32 @@ button {
 }
 
 .move-container {
-    display: flex;
-    flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 143px;
+    height: 162px;
     width: 239px;
+    text-align: center;
+    padding-right: 12px;
 }
 
 .move {
     padding: 6px;
     border: 1px solid white;
-    margin: 6px;
+    margin-right: 6px;
+    margin-left: 24px;
+    margin-bottom: 8px;
     border-radius: 5px;
+}
+
+.canvasContainer {
+    height: 136px;
+    margin-top: 26px;
 }
 
 .backward {
     width: 32px;
     height: 32px;
-    top: 56px;
+    top: 50px;
     left: 10px;
     z-index: 3;
     opacity: 0.6;
@@ -331,7 +338,7 @@ button {
     height: 32px;
     position: absolute;
     right: 10px;
-    top: 56px;
+    top: 50px;
     z-index: 3;
     opacity: 0.6;
     /* css standard */
@@ -504,7 +511,7 @@ button {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.75);
     border-radius: 10px;
 }
 

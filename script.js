@@ -307,7 +307,7 @@ function showStats(i) {
         const overlayPokemonInnerCard = document.getElementById(`overlayPokemonInnerCard`);
         overlayPokemonInnerCard.innerHTML = '';
         overlayPokemonInnerCard.innerHTML += `
-        <div>
+        <div class="canvasContainer">
             <canvas id="myChartStats"></canvas>
         </div>
         `;
