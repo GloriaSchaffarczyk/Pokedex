@@ -104,7 +104,6 @@ function displayError() {
     document.getElementById('pokemon').innerHTML = `<div class="error"><p class="error-message">Note: A Pokémon with that name could not be found. Please note, that you are only able to search by name, not by ID. Please try again or load more Pokémon. You can go back by clicking on the Logo.</p></div>`;
 }
 
-
 function submitSearch() {
     document.forms['search'].dispatchEvent(new Event('submit'));
 }
