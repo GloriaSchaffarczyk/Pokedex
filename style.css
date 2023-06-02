@@ -483,24 +483,24 @@ button {
 /* Scrollbar */
 
 /* width */
-::-webkit-scrollbar {
+.move-container::-webkit-scrollbar {
     width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.move-container::-webkit-scrollbar-track {
     border: 1px solid white;
     border-radius: 10px;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+.move-container::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.75);
     border-radius: 10px;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.move-container::-webkit-scrollbar-thumb:hover {
     background: #ffffff;
 }
 
