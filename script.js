@@ -105,7 +105,13 @@ function displayError() {
 }
 
 function submitSearch() {
-    document.forms['search'].dispatchEvent(new Event('submit'));
+    let inputField = document.getElementById('search');
+    
+    if(inputField.value.trim() !== '') {
+        document.forms['search'].dispatchEvent(new Event('submit'));
+    } else {
+        console.log('Das Eingabefeld ist leer.');
+    }
 }
 
 function inputFocus(element) {
