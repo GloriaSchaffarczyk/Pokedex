@@ -69,7 +69,6 @@ function loadMorePokemon() {
 }
 
 // SEARCH //
-
 function searchPokemon(event) {
     event.preventDefault();
     let search = document.getElementById('search').value;
@@ -127,7 +126,6 @@ function inputBlur(element) {
 }
 
 // OVERLAY //
-
 function getOverlayBackground(pokemonType) {
     let overlayPokedex = document.querySelector('.overlayPokedex');
     let overlayBackground = `url('img/types-background/${pokemonType}.png')`;
@@ -203,7 +201,6 @@ function renderOverlayPokemonTypes(i, currentPokemon) {
 }
 
 // RENDERING MOVES //
-
 function renderPokemonMoves(currentPokemon) {
     let movesContainer = document.getElementById('overlayPokemonInnerCard');
     movesContainer.innerHTML = '';
@@ -220,7 +217,6 @@ function renderPokemonMoves(currentPokemon) {
 }
 
 // RENDER MOVES //
-
 function showMoves(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
@@ -231,7 +227,6 @@ function showMoves(i) {
 }
 
 // EXTRACT CHART DATA FROM API //
-
 function extractStatsData(currentPokemon) {
     let statsData = [];
     for (let j = 0; j < currentPokemon['stats'].length; j++) {
@@ -241,7 +236,6 @@ function extractStatsData(currentPokemon) {
 }
 
 // CREATE DATA AND STYLE OF CHART //
-
 function createStatsChartData(statsData) {
     return {
         labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
@@ -274,7 +268,6 @@ function createStatsChartData(statsData) {
 }
 
 // CREATE TYPE OF CHART: BAR //
-
 function createStatsChart(canvasElementId, data) {
     const ctxStats = document.getElementById(canvasElementId);
     new Chart(ctxStats, {
@@ -304,7 +297,6 @@ function createStatsChart(canvasElementId, data) {
 }
 
 // SHOW CHART //
-
 function showStats(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
@@ -324,7 +316,6 @@ function showStats(i) {
 }
 
 // HTML TEMPLATES OVERVIEW & OVERLAY //
-
 function loadPokemonHTML(i, currentPokemon) {
     return `
         <div class="pokedex" id="pokedex${i}" onclick="openOverlay(${currentPokemon.id})">           
