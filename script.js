@@ -216,7 +216,7 @@ function renderPokemonMoves(currentPokemon) {
     movesContainer.appendChild(moveDivContainer);
 }
 
-// RENDER MOVES //
+// SHOW MOVES //
 function showMoves(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
