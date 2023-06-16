@@ -297,7 +297,6 @@ function createStatsChart(canvasElementId, data) {
 }
 
 // SHOW CHART //
-// shows status values of pokemon 
 function showStats(i) {
     let currentPokemon = pokemonList[i - 1];
     if (currentPokemon) {
