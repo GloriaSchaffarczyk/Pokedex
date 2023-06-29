@@ -335,7 +335,6 @@ function loadPokemonHTML(i, currentPokemon) {
     `;
 }
 
-// function for the overlay
 function templateOverlay(i) {
     return `
         <div class="overlayPokedex" id="pokedex${i}">
