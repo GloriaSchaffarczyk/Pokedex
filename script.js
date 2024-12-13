@@ -1,5 +1,5 @@
 let currentPokemon;
-let loadedPokemon = 33;
+let loadedPokemon = 26;
 let currentlyLoaded = 1;
 let pokemonList = [];
 
@@ -8,33 +8,42 @@ function init() {
 }
 
 async function loadPokemon() {
-    for (let i = currentlyLoaded; i < loadedPokemon; i++) {
+    const pokemonContainer = document.getElementById('pokemon');
+    let html = '';
+
+    let startIndex = currentlyLoaded;
+    let endIndex = loadedPokemon;
+
+    for (let i = startIndex; i < endIndex; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
-
         pokemonList.push(currentPokemon);
+        html += loadPokemonHTML(i, currentPokemon);
+    }
 
-        document.getElementById('pokemon').innerHTML += loadPokemonHTML(i, currentPokemon);
+    pokemonContainer.innerHTML += html;
 
+    for (let i = startIndex; i < endIndex; i++) {
+        let currentPokemon = pokemonList[i - 1];
         renderPokemonInfo(i, currentPokemon);
         renderPokemonTypes(i, currentPokemon);
     }
 }
 
 function renderPokemonInfo(i, currentPokemon) {
-    document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon['name'];
     document.getElementById(`pokemonName${i}`).innerHTML = capitalizeFirstLetter(currentPokemon);
     document.getElementById(`pokemonImg${i}`).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById(`pokemonId${i}`).innerHTML = '#' + currentPokemon['id'];
 }
 
 function renderPokemonTypes(i, currentPokemon) {
-    document.getElementById(`types${i}`).innerHTML = '';
+    const typesContainer = document.getElementById(`types${i}`);
+    typesContainer.innerHTML = '';
 
     for (let j = 0; j < currentPokemon['types'].length; j++) {
         let pokemonType = currentPokemon['types'][j]['type']['name'];
-        document.getElementById(`types${i}`).innerHTML += `
+        typesContainer.innerHTML += `
         <div class="types-container${i}">
             <div class="type-icons">${getPokemonColors(pokemonType)}</div>
         </div>`;
@@ -64,7 +73,7 @@ function capitalizeFirstLetter(currentPokemon) {
 
 function loadMorePokemon() {
     currentlyLoaded = loadedPokemon;
-    loadedPokemon += 33;
+    loadedPokemon += 26;
     loadPokemon();
 }
 
