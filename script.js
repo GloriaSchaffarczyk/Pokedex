@@ -14,18 +14,24 @@ async function loadPokemon() {
     let startIndex = currentlyLoaded;
     let endIndex = loadedPokemon;
 
+    const requests = [];
     for (let i = startIndex; i < endIndex; i++) {
-        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-        let response = await fetch(url);
-        let currentPokemon = await response.json();
+        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        requests.push(fetch(url).then(res => res.json()));
+    }
+
+    const results = await Promise.all(requests);
+
+    results.forEach((currentPokemon, index) => {
+        const i = startIndex + index;
         pokemonList.push(currentPokemon);
         html += loadPokemonHTML(i, currentPokemon);
-    }
+    });
 
     pokemonContainer.innerHTML += html;
 
     for (let i = startIndex; i < endIndex; i++) {
-        let currentPokemon = pokemonList[i - 1];
+        const currentPokemon = pokemonList[i - 1];
         renderPokemonInfo(i, currentPokemon);
         renderPokemonTypes(i, currentPokemon);
     }
@@ -78,34 +84,44 @@ function loadMorePokemon() {
 }
 
 // SEARCH //
-function searchPokemon(event) {
+async function searchPokemon(event) {
     event.preventDefault();
-    let search = document.getElementById('search').value;
-    search = search.toLowerCase();
+    let search = document.getElementById('search').value.toLowerCase();
 
     document.getElementById('pokemon').innerHTML = '';
     document.getElementById('loadMoreButton').innerHTML = '';
 
-    let foundPokemon = filterAndRenderPokemon(search);
-
-    if (foundPokemon === 0) {
-        displayError();
-    }
-}
-
-function filterAndRenderPokemon(search) {
     let foundPokemon = 0;
+
     for (let i = 0; i < pokemonList.length; i++) {
         const currentPokemon = pokemonList[i];
-        const pokemonName = currentPokemon['name'];
-        if (pokemonName.startsWith(search)) {
+        if (currentPokemon['name'].startsWith(search)) {
             foundPokemon++;
             document.getElementById('pokemon').innerHTML += loadPokemonHTML(i, currentPokemon);
             renderPokemonInfo(i, currentPokemon);
             renderPokemonTypes(i, currentPokemon);
         }
     }
-    return foundPokemon;
+
+    if (foundPokemon === 0) {
+        try {
+            const url = `https://pokeapi.co/api/v2/pokemon/${search}`;
+            const response = await fetch(url);
+            const currentPokemon = await response.json();
+
+            pokemonList.push(currentPokemon);
+            foundPokemon++;
+            document.getElementById('pokemon').innerHTML += loadPokemonHTML(currentPokemon.id, currentPokemon);
+            renderPokemonInfo(currentPokemon.id, currentPokemon);
+            renderPokemonTypes(currentPokemon.id, currentPokemon);
+        } catch {
+            displayError();
+        }
+    }
+
+    if (foundPokemon === 0) {
+        displayError();
+    }
 }
 
 function displayError() {
@@ -384,4 +400,3 @@ function templateOverlay(i) {
             </div>
         </div>`;
 }
-
